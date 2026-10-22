@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+  <!-- Original, tileable paper grain. No external images or embedded scripts. -->
+  <defs>
+    <filter id="grain" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency=".74" numOctaves="3" seed="23" stitchTiles="stitch"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 .36 0 0 0 0 .29 0 0 0 0 .18 .55 .55 .55 0 -.5"/>
+    </filter>
+    <filter id="fibres" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency=".045 .68" numOctaves="2" seed="8" stitchTiles="stitch"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 .45 0 0 0 0 .36 0 0 0 0 .24 .5 .5 .5 0 -.54"/>
+    </filter>
+  </defs>
+  <path fill="#fff" d="M0 0h256v256H0z" filter="url(#grain)" opacity=".27"/>
+  <path fill="#fff" d="M0 0h256v256H0z" filter="url(#fibres)" opacity=".17"/>
+</svg>

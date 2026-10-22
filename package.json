@@ -1,0 +1,14 @@
+{
+  "name": "pakkeklar",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "En liten, lokal pakkeliste-app for din neste tur.",
+  "scripts": {
+    "start": "node scripts/serve.mjs",
+    "build": "node scripts/build.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "check": "node --check app.js && node --check packing.js && node --check carousel.js && node --check trip-images.js && node --check dashboard.js && node --check adventure-data.js && node --check settings-data.js && node --check scripts/serve.mjs && node --check scripts/build.mjs"
+  },
+  "engines": { "node": ">=20" }
+}

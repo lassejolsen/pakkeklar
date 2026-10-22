@@ -1,0 +1,171 @@
+/* Reiseglede shares the existing palette, type scale and spacing. */
+/* Unframed ticket paper with fine grain and a subtle coated finish. */
+.travel-ticket {
+  --ticket-paper: #f5efdf;
+  display: grid; grid-template-columns: 174px minmax(0,1fr) 206px; min-height: 248px;
+  position: relative; isolation: isolate; overflow: hidden;
+  background: url("./assets/paper-texture.svg") 0 0 / 256px 256px, linear-gradient(115deg, #fbf7eb, var(--ticket-paper));
+  border: 0; border-radius: 2px; margin: 0 0 24px;
+  box-shadow: 0 1px 2px #5141271c, 0 5px 10px -6px #51412733, 0 13px 26px -18px #51412726;
+}
+.travel-ticket::before, .travel-ticket::after { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+.travel-ticket::before {
+  background: linear-gradient(120deg, transparent 28%, #ffffff12 39%, #ffffff70 49%, #ffffff21 57%, transparent 70%);
+  transform: translateX(-130%);
+}
+.travel-ticket::after {
+  background: linear-gradient(130deg, #ffffff29 0%, #ffffff08 27%, #ffffff80 43%, #ffffffa1 47%, #ffffff24 56%, transparent 70%), radial-gradient(ellipse at 0% 0%, #ffffff38, transparent 65%);
+  opacity: .66;
+}
+@keyframes ticket-shine { from { transform: translateX(-130%); } to { transform: translateX(130%); } }
+@media (hover: hover) and (pointer: fine) { .travel-ticket:hover::before { animation: ticket-shine 1.2s ease-in-out; } }
+.travel-ticket:focus-within::before { animation: ticket-shine 1.2s ease-in-out; }
+.ticket-main, .ticket-stub > * { position: relative; z-index: 2; }
+.ticket-visual { position: relative; margin: 10px 0 10px 10px; min-width: 0; overflow: hidden; border-radius: 3px; background: #d4d5bf; }
+.ticket-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: saturate(.72) contrast(.96); }
+.ticket-visual::after { content: ""; position: absolute; inset: 0; box-shadow: inset 0 0 0 1px #3e49282b; background: linear-gradient(transparent 55%, #24382f70); pointer-events: none; }
+.ticket-photo-label { position: absolute; z-index: 1; left: 14px; bottom: 13px; color: #fffdf2; font-size: 14px; font-weight: 600; letter-spacing: -.5px; }
+.ticket-heading, .ticket-badges { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+.ticket-heading { justify-content: space-between; gap: 10px 16px; }
+.ticket-heading .selected-badge { background: transparent; border: 1px solid #b8c1aa; border-radius: 3px; text-transform: uppercase; letter-spacing: 1px; padding: 3px 7px; font-size: 10px; }
+.ticket-main { padding: 23px 29px 15px; min-width: 0; }
+.ticket-main .eyebrow { font-size: 10px; letter-spacing: 1.8px; color: #6c735c; }
+.ticket-main .eyebrow svg { width: 17px; height: 17px; }
+.ticket-main h3 { font-family: Georgia, serif; font-size: 31px; font-weight: 400; letter-spacing: -.7px; margin: 14px 0 21px; overflow-wrap: anywhere; }
+.ticket-facts { display: flex; flex-wrap: wrap; gap: 16px 35px; margin: 0; }
+.ticket-facts dt { font: 10px ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .8px; text-transform: uppercase; color: #7a806c; margin-bottom: 7px; }
+.ticket-facts dd { font-size: 12px; margin: 0; }
+.ticket-status { margin-top: 18px; max-width: 460px; }
+.ticket-status-line { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 7px 16px; color: #657654; font-size: 10px; line-height: 1.5; }
+.ticket-preparation { display: inline-flex; align-items: center; gap: 5px; }
+.ticket-preparation svg { width: 12px; height: 12px; }
+.ticket-footer { display: flex; justify-content: space-between; flex-wrap: wrap; align-items: center; gap: 8px; border-top: 1px solid #dedbce; margin-top: 17px; padding-top: 11px; color: #7a7d69; font: 10px ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .5px; }
+.ticket-reference { letter-spacing: 1.5px; color: #53634a; }
+.ticket-stub { position: relative; border-left: 1px dashed #b8ad94; padding: 23px 18px 19px; display: flex; flex-direction: column; align-items: center; justify-content: center; background: linear-gradient(90deg, #82734f12, transparent 7%); }
+.ticket-stub::before, .ticket-stub::after { content: ""; position: absolute; z-index: 3; width: 29px; height: 29px; background: var(--bg); border: 0; border-radius: 50%; left: -15px; box-shadow: inset 0 1px 2px #483f2812; }
+.ticket-stub::before { top: -16px; }.ticket-stub::after { bottom: -16px; }
+.ticket-caption { font: 10px ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: 1.8px; color: #69745b; text-align: center; }
+.ticket-number { display: block; font-family: Georgia, serif; font-size: 53px; font-weight: 400; font-variant-numeric: tabular-nums; line-height: 1.15; color: #4c6540; margin-top: 9px; }
+.ticket-number svg { width: 40px; height: 40px; margin: 5px; }
+.ticket-days { font-size: 11px; color: #687653; }
+.ticket-barcode { width: 115px; max-width: 90%; height: 30px; margin: 19px 0 6px; opacity: .65; background: repeating-linear-gradient(90deg, #354c31 0 1px, transparent 1px 3px, #354c31 3px 6px, transparent 6px 8px, #354c31 8px 10px, transparent 10px 13px, #354c31 13px 14px, transparent 14px 18px, #354c31 18px 21px, transparent 21px 23px); }
+.ticket-stub .text-button { font-size: 11px; min-height: 40px; margin-top: 4px; text-align: center; }
+
+.adventure-section { border-top: 1px solid var(--line); padding: 34px 0 36px; }
+.adventure-heading { align-items: center; margin-bottom: 20px; gap: 20px; }
+.adventure-heading p, .subsection-heading p { font-size: 12px; line-height: 1.7; color: var(--muted); margin: 9px 0 0; }
+.adventure-toolbar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; margin-bottom: 24px; }
+.adventure-trip-field { position: relative; display: flex; align-items: center; gap: 10px; min-width: 0; width: 280px; max-width: 100%; padding: 7px 11px 7px 7px; border: 1px solid #dde4d5; border-radius: 12px; background: #f0f3eb; transition: border-color .15s, background .15s; }
+.adventure-trip-field:hover, .adventure-trip-field:focus-within { background: #eaf0e3; border-color: #a6b59a; }
+.adventure-trip-field > img { flex-shrink: 0; width: 36px; height: 36px; object-fit: cover; border-radius: 7px; }
+.adventure-trip-choice { display: grid; flex: 1; min-width: 0; gap: 3px; }
+.adventure-trip-field label { font-size: 10px; color: var(--muted); }
+.adventure-form select, .adventure-form textarea { color: var(--ink); background: #fff; border: 1px solid #dce3d5; border-radius: 8px; padding: 11px; font: inherit; font-size: 12px; width: 100%; min-width: 0; }
+.adventure-trip-field select { appearance: none; -webkit-appearance: none; text-overflow: ellipsis; color: var(--green); background: transparent; border: 0; border-radius: 3px; padding: 1px 23px 1px 0; font: inherit; font-size: 12px; font-weight: 550; width: 100%; min-width: 0; cursor: pointer; }
+.adventure-trip-arrow { position: absolute; right: 12px; bottom: 11px; pointer-events: none; color: #768769; }
+.adventure-trip-arrow svg { width: 15px; height: 15px; }
+.adventure-tabs { display: flex; gap: 7px; padding: 5px; background: #eaece4; width: fit-content; border-radius: 11px; margin: 0; }
+.adventure-tabs button { display: flex; align-items: center; justify-content: center; gap: 7px; padding: 11px 19px; min-height: 42px; border-radius: 8px; font-size: 12px; color: #66715d; transition: background .15s, color .15s; }
+.adventure-tabs button svg { width: 16px; height: 16px; }
+.adventure-tabs button[aria-selected="true"] { color: var(--green); background: white; box-shadow: 0 2px 6px #24382f09; }
+.adventure-tabs button:hover { color: var(--green); }
+.adventure-save-warning { font-size: 12px; line-height: 1.6; padding: 13px; background: #fff0d6; border-radius: 8px; }
+.explore-grid { display: grid; grid-template-columns: minmax(0, 1.06fr) minmax(0, 1fr); gap: 18px; }
+.adventure-card { border: 1px solid #e1e6da; border-radius: 17px; background: #fff; padding: 25px; min-width: 0; }
+.adventure-card h3 { font-size: 22px; line-height: 1.25; letter-spacing: -.6px; font-weight: 550; margin: 10px 0 8px; }
+.adventure-card .eyebrow { font-size: 10px; letter-spacing: 1.4px; }
+.adventure-card p { color: var(--muted); font-size: 12px; line-height: 1.7; margin: 7px 0; }
+.card-heading { display: flex; align-items: center; justify-content: space-between; gap: 15px; }
+.bingo-count, .passport-total { border-radius: 20px; padding: 7px 10px; font-size: 10px; white-space: nowrap; background: #edf2e7; color: #5d7250; }
+.wheel-card { background: #fdfbf5; }
+.wheel-layout { display: flex; gap: 25px; align-items: center; margin-top: 24px; }
+.activity-wheel { position: relative; width: 172px; height: 172px; flex-shrink: 0; }
+.wheel-disc { position: absolute; inset: 0; border-radius: 50%; background: conic-gradient(#d6e0cd 0deg 60deg, #ebd8b9 60deg 120deg, #cbdcda 120deg 180deg, #e5e9d8 180deg 240deg, #eddfd4 240deg 300deg, #b5c8b5 300deg 360deg); border: 5px solid #fffdf7; box-shadow: 0 0 0 1px #d9decb, 0 8px 18px #3149350a; transition: transform 1.8s cubic-bezier(.16,.75,.16,1); }
+.wheel-mark { position: absolute; transform: translate(-50%,-50%); color: #566c52; }
+.wheel-mark svg { width: 23px; height: 23px; }
+.wheel-hub { position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); width: 36px; height: 36px; display: grid; place-items: center; background: #fffdf7; color: #75896a; border-radius: 50%; box-shadow: 0 2px 4px #24382f14; }
+.wheel-pointer { position: absolute; top: -7px; left: calc(50% - 7px); z-index: 1; width: 14px; height: 22px; background: #294c3e; clip-path: polygon(0 0,100% 0,50% 100%); }
+.wheel-copy { min-width: 0; flex: 1; }
+.wheel-copy h4 { font-family: Georgia, serif; font-size: 21px; font-weight: 400; line-height: 1.2; margin: 0 0 10px; }
+.wheel-copy p { font-size: 11px; min-height: 58px; }
+.wheel-copy .button { padding-inline: 15px; gap: 9px; min-height: 42px; margin-top: 12px; font-size: 11px; }
+.bingo-card { grid-column: 2; grid-row: 1 / span 2; display: flex; flex-direction: column; }
+.bingo-board { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 9px; margin-top: 17px; flex: 1; }
+.bingo-cell { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 11px; min-height: 97px; border: 1px solid #e6e9df; background: #f8faf5; border-radius: 10px; padding: 11px 7px; font-size: 11px; line-height: 1.5; transition: background .18s, border-color .18s, transform .18s; }
+.bingo-cell > span:last-child { max-width: 100px; }
+.bingo-cell svg { color: #899d77; width: 21px; height: 21px; }
+.bingo-cell:hover { transform: translateY(-2px); border-color: #a4b295; }
+.bingo-cell[aria-pressed="true"] { color: #fff; background: #46644e; border-color: #46644e; }
+.bingo-cell[aria-pressed="true"] svg { color: #eaf0de; }
+.bingo-cell.winning { outline: 2px solid #c4ae79; outline-offset: -5px; }
+.bingo-footer { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 12px; font-size: 10px; color: #687b59; }
+.bingo-footer .text-button { font-size: 10px; }
+.playlist-card { display: flex; align-items: center; gap: 26px; background: #eef2e9; }
+.record-art { position: relative; width: 118px; height: 94px; flex-shrink: 0; }
+.record-disc { position: absolute; width: 90px; height: 90px; border-radius: 50%; right: 0; top: 2px; background: repeating-radial-gradient(circle,#2c3c33 0 2px,#37473e 3px 4px); }
+.record-disc::after { content: ""; position: absolute; inset: 31px; border-radius: 50%; background: #e7d9b9; border: 11px solid #b9c5a4; }
+.record-art img { position: relative; width: 85px; height: 94px; object-fit: cover; border-radius: 4px; box-shadow: 3px 5px 12px #24382f20; }
+.playlist-copy { min-width: 0; }
+.playlist-card h3 { font-size: 18px; line-height: 1.4; overflow-wrap: anywhere; }
+.playlist-card p { font-size: 11px; }
+.playlist-actions { display: flex; gap: 18px; flex-wrap: wrap; margin-top: 5px; }
+.playlist-actions .text-button { font-size: 11px; padding-block: 5px; justify-content: start; }
+#playlist-open { font-weight: 650; color: var(--green); }
+.subsection-heading { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-bottom: 22px; }
+.subsection-heading h3 { font-size: 22px; margin: 0; font-weight: 550; }
+.subsection-heading .button { flex-shrink: 0; gap: 9px; }
+.dream-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 20px; }
+.dream-card { border: 1px solid #e0e5d9; border-radius: 15px; overflow: hidden; background: #fff; }
+.dream-image { display: block; width: 100%; height: 186px; object-fit: cover; }
+.dream-body { padding: 22px 20px 12px; }
+.dream-kicker { font-size: 10px; letter-spacing: 1.1px; color: #849072; }
+.dream-body h4 { font-family: Georgia, serif; font-size: 24px; font-weight: 400; letter-spacing: -.4px; margin: 11px 0 9px; overflow-wrap: anywhere; }
+.dream-body p { font-size: 12px; line-height: 1.7; color: #728067; margin: 0; min-height: 44px; white-space: pre-wrap; overflow-wrap: anywhere; }
+.dream-actions { display: flex; gap: 10px; align-items: center; margin-top: 19px; padding-top: 10px; border-top: 1px solid var(--line); }
+.dream-actions .dream-plan { margin-right: auto; text-align: left; font-weight: 550; font-size: 11px; color: var(--green); }
+.dream-actions .icon-button { width: 30px; height: 38px; flex-shrink: 0; }
+.dream-actions .icon-button svg { width: 14px; height: 14px; }
+.memories-grid { display: grid; grid-template-columns: minmax(0,1.1fr) minmax(0,1fr); gap: 20px; align-items: start; }
+.passport-card { background: #fcfbf5; }
+.passport-book { display: grid; grid-template-columns: 160px minmax(0,1fr); min-height: 240px; margin: 23px 0 16px; border-radius: 9px; border: 1px solid #dbe0d1; overflow: hidden; box-shadow: 0 8px 18px #273b3009; }
+.passport-cover { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 15px; color: #d3c39a; padding: 20px 12px; background: #294c3e; box-shadow: inset -5px 0 12px #132d25a0; text-align: center; }
+.passport-cover svg { width: 42px; height: 42px; stroke-width: 1; }.passport-cover strong { font-size: 14px; letter-spacing: 2.5px; font-weight: 500; }.passport-cover > span:not(:first-child) { font-size: 10px; letter-spacing: .4px; }.passport-cover .passport-brand { margin-top: 26px; opacity: .7; }
+.passport-page { background: repeating-linear-gradient(0deg,#fffef8 0 19px,#edf0e514 20px); padding: 14px; display: flex; flex-wrap: wrap; align-content: center; justify-content: center; gap: 16px; box-shadow: inset 7px 0 13px #374e3110; max-height: 360px; overflow-y: auto; overscroll-behavior: contain; }
+.passport-stamp { color: #6e8260; border: 1px solid currentColor; outline: 1px dashed currentColor; outline-offset: -5px; border-radius: 14px; padding: 14px 12px; min-height: 115px; width: 140px; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 9px; transform: rotate(-4deg); }
+.passport-stamp:nth-child(even) { transform: rotate(4deg); }.passport-stamp:hover { background: #eaf0e6; }.passport-stamp strong { font-size: 12px; font-weight: 550; line-height: 1.4; overflow-wrap: anywhere; max-width: 100%; }.passport-stamp > span:last-child { font-size: 10px; }.stamp-beach { color: #a07a4f; border-radius: 45%; }.stamp-city { color: #67888c; }
+.stamp-empty { border: 1px dashed #cdd5bd; border-radius: 50%; width: 146px; height: 146px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; color: #8e9a7e; padding: 19px; text-align: center; font-size: 11px; line-height: 1.6; transform: rotate(5deg); }.stamp-empty svg { width: 28px; height: 28px; }
+.passport-actions { display: flex; flex-direction: column; align-items: start; gap: 6px; margin-top: 15px; }.passport-actions .button { min-height: 42px; font-size: 11px; }.passport-card .stamp-hint { font-size: 11px; }
+.memory-card { text-align: center; }.memory-card .card-heading, .memory-card > p { text-align: left; }
+.memory-jar { position: relative; width: 166px; height: 174px; margin: 26px auto 18px; }.jar-lid { position: absolute; z-index: 2; left: 10px; right: 10px; top: 0; height: 17px; background: repeating-linear-gradient(90deg,#b7c0a3 0 3px,#c6ceb9 3px 6px); border: 1px solid #aeb99b; border-radius: 6px 6px 3px 3px; }.jar-glass { position: absolute; top: 15px; left: 4px; right: 4px; bottom: 0; border: 2px solid #cdd9ce; border-radius: 14px 14px 30px 30px; background: linear-gradient(110deg,#f9fffc 0%,#e4eee578 30%,#f7fbf55c 70%,#d5e2da6b); overflow: hidden; box-shadow: inset 6px 0 0 #ffffffb0, 0 5px 0 #d9dfd02b; }.jar-glass::after { pointer-events: none; content: ""; position: absolute; top: 22px; left: 12px; width: 4px; height: 55px; border-radius: 4px; background: #fff; }.jar-label { pointer-events: none; position: absolute; z-index: 2; top: 77px; left: 27px; right: 27px; background: #fffdf0ee; border: 1px solid #e5e4cf; transform: rotate(-4deg); font-family: Georgia, serif; font-style: italic; font-size: 14px; padding: 13px 5px; color: #768469; }.jar-paper { position: absolute; width: 44px; height: 29px; border: 1px solid #dbcba6; background: #eddfbd; border-radius: 2px; bottom: calc(12px + var(--paper-index) * 11px); left: 20px; transform: rotate(calc(-22deg + var(--paper-index) * 13deg)); }.jar-paper:nth-child(even) { background: #cfddc7; border-color: #b3c3a8; left: 75px; }
+.memory-notes { max-height: 235px; overflow-y: auto; overscroll-behavior: contain; margin: 0 0 17px; }.memory-note { display: flex; align-items: center; gap: 10px; width: 100%; padding: 13px 10px; border-top: 1px solid var(--line); text-align: left; font-size: 12px; line-height: 1.5; }.memory-note:hover { background: #f8faf4; }.memory-note > span:nth-child(2) { flex: 1; overflow-wrap: anywhere; }.memory-note svg { width: 15px; height: 15px; color: #8a9c7b; }.memory-card > .button { min-height: 42px; font-size: 11px; gap: 9px; }
+.feature-empty { color: #839076; font-size: 12px; line-height: 1.7; padding: 12px 5px; }
+.adventure-dialog { width: min(520px,calc(100% - 32px)); }.adventure-form { display: grid; gap: 17px; }.adventure-form textarea { resize: vertical; min-height: 95px; line-height: 1.65; }.adventure-form .dialog-actions { margin-top: 6px; }.dream-preview { width: 100%; height: 130px; object-fit: cover; border-radius: 8px; margin-top: 4px; }.memory-reading blockquote { font-family: Georgia,serif; font-size: 23px; font-weight: 400; color: #435b41; line-height: 1.7; margin: 25px 0; white-space: pre-wrap; overflow-wrap: anywhere; }
+.progress-block { position: relative; padding-left: 104px; min-height: 89px; display: flex; flex-direction: column; justify-content: center; padding-bottom: 18px; }
+.packing-suitcase { position: absolute; width: 91px; height: 76px; left: -4px; top: -5px; }.packing-suitcase svg { width: 100%; height: 100%; }.suitcase-fill { transition: y .25s, height .25s; }
+
+@media (max-width:1100px) {
+  .site-header nav { gap: 21px; }
+  .travel-ticket { grid-template-columns: 142px minmax(0,1fr) 162px; }.ticket-main { padding: 23px; }.ticket-main h3 { font-size: 27px; }.ticket-facts { gap: 13px 20px; }
+  .adventure-card { padding: 21px; }.wheel-layout { gap: 18px; }.activity-wheel { width: 140px; height: 140px; }.wheel-copy h4 { font-size: 19px; }.wheel-copy p { font-size: 10px; }.bingo-cell { min-height: 91px; }.playlist-card { gap: 18px; }.record-art { width: 99px; height: 85px; }.record-disc { height: 82px; width: 82px; }.record-art img { width: 75px; height: 85px; }
+  .dream-grid { gap: 14px; }.dream-body { padding-inline: 15px; }.dream-body h4 { font-size: 22px; }.dream-actions { gap: 4px; }
+  .passport-book { grid-template-columns: 120px minmax(0,1fr); }.passport-cover { padding-inline: 8px; }.passport-cover strong { font-size: 12px; }.stamp-empty { width: 128px; height: 128px; }
+}
+@media (max-width:900px) and (min-width:761px) { .wheel-layout { flex-direction: column; align-items: start; }.activity-wheel { align-self: center; }.wheel-copy p { min-height: 0; }.playlist-card { gap: 14px; }.record-art { width: 70px; }.record-disc { display: none; }.dream-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }.memories-grid { grid-template-columns: 1fr; }.passport-book { grid-template-columns: 180px 1fr; } }
+@media (max-width:760px) {
+  .travel-ticket { grid-template-columns: minmax(0,1fr) 108px; margin-bottom: 16px; min-height: 177px; }.ticket-visual { display: none; }.ticket-main { padding: 20px 16px; }.ticket-footer { line-height: 1.5; }.ticket-footer > span:last-child { display: none; }.ticket-barcode { height: 27px; margin-top: 19px; }.ticket-main .eyebrow { font-size: 10px; letter-spacing: 1px; gap: 5px; }.ticket-main .eyebrow svg { width: 13px; height: 13px; }.ticket-main h3 { font-size: 23px; margin: 12px 0 18px; }.ticket-facts { gap: 13px 18px; }.ticket-facts dt { font-size: 10px; }.ticket-facts dd { font-size: 10px; }.ticket-facts > div:last-child { display: none; }.ticket-stub { padding: 15px 8px; }.ticket-caption { font-size: 10px; letter-spacing: 1px; }.ticket-number { font-size: 39px; }.ticket-days { font-size: 10px; }.ticket-stub .text-button { font-size: 10px; line-height: 1.6; min-height: 40px; }
+  .adventure-section { padding-top: 26px; padding-bottom: 26px; }.adventure-heading { display: block; }.adventure-heading .eyebrow { font-size: 10px; }.adventure-heading h2 { font-size: 23px; }.adventure-heading p { font-size: 11px; }.adventure-toolbar { gap: 13px; margin-bottom: 18px; }.adventure-trip-field { width: 100%; order: -1; }.adventure-trip-field select { font-size: 16px; }.adventure-tabs { width: 100%; gap: 2px; }.adventure-tabs button { padding: 10px 8px; font-size: 11px; flex: 1; gap: 6px; min-height: 44px; }.adventure-tabs button svg { width: 15px; height: 15px; }
+  .explore-grid, .memories-grid { grid-template-columns: 1fr; gap: 14px; }.bingo-card { grid-column: auto; grid-row: auto; }.playlist-card { grid-row: 2; }.adventure-card { padding: 22px 18px; border-radius: 15px; }.adventure-card h3 { font-size: 22px; }.wheel-layout { gap: 20px; margin-top: 23px; }.activity-wheel { width: 124px; height: 124px; }.wheel-mark svg { width: 19px; height: 19px; }.wheel-hub { width: 30px; height: 30px; }.wheel-copy h4 { font-size: 19px; }.wheel-copy p { font-size: 10px; line-height: 1.7; min-height: 0; }.wheel-copy .button { font-size: 10px; padding: 9px 10px; gap: 6px; min-height: 44px; }.wheel-copy .button svg { width: 14px; height: 14px; }.bingo-board { gap: 7px; }.bingo-cell { min-height: 99px; font-size: 10px; padding: 10px 6px; }.bingo-footer { font-size: 10px; }.bingo-footer .text-button { min-height: 44px; font-size: 10px; }
+  .playlist-card { gap: 19px; }.playlist-card h3 { font-size: 17px; }.playlist-card p { font-size: 11px; }.playlist-actions { gap: 12px; }.playlist-actions .text-button { min-height: 38px; font-size: 11px; }.record-art { width: 87px; height: 88px; }.record-art img { width: 67px; height: 88px; }.record-disc { width: 78px; height: 78px; top: 5px; }.record-disc::after { inset: 24px; }
+  .subsection-heading { align-items: start; gap: 12px; }.subsection-heading h3 { font-size: 21px; }.subsection-heading p { font-size: 11px; }.subsection-heading .button { padding: 9px 11px; font-size: 10px; gap: 5px; min-height: 44px; }.subsection-heading .button svg { width: 14px; }.dream-grid { grid-template-columns: 1fr; gap: 16px; }.dream-image { height: 185px; }.dream-body { padding: 20px 20px 10px; }.dream-body h4 { font-size: 25px; }.dream-body p { min-height: 0; }.dream-actions { margin-top: 16px; }.dream-actions .icon-button { width: 40px; height: 44px; }.dream-actions .dream-plan { min-height: 44px; }
+  .passport-book { grid-template-columns: 114px minmax(0,1fr); }.passport-page { padding: 10px; }.passport-cover strong { font-size: 11px; letter-spacing: 2px; }.stamp-empty { width: 115px; height: 115px; font-size: 10px; padding: 11px; }.passport-stamp { width: 125px; }.passport-actions .button { min-height: 44px; }.passport-actions .text-button { min-height: 44px; font-size: 11px; }.memory-card > .button { min-height: 44px; font-size: 11px; }
+  .adventure-form select, .adventure-form textarea { font-size: 16px; }.adventure-dialog { padding: 23px 19px; }.adventure-dialog h2 { font-size: 23px; }.adventure-form .dialog-actions .button { padding-inline: 15px; }
+  .progress-block { padding-left: 78px; min-height: 73px; }.packing-suitcase { width: 70px; height: 62px; top: -3px; }.progress-label { flex-wrap: wrap; gap: 4px; }
+  body.packing-mode .adventure-section { display: none; }
+}
+@media (max-width:370px) { .activity-wheel { width: 103px; height: 103px; }.wheel-layout { gap: 14px; }.wheel-copy h4 { font-size: 18px; }.wheel-copy .button { font-size: 10px; gap: 4px; }.wheel-copy .button svg { display: none; }.adventure-card { padding-inline: 15px; }.ticket-main { padding-inline: 13px; }.ticket-main h3 { font-size: 22px; }.ticket-main .eyebrow { font-size: 10px; }.ticket-main .eyebrow svg { display: none; }.ticket-facts { gap: 10px; }.passport-book { grid-template-columns: 93px minmax(0,1fr); }.passport-cover strong { font-size: 10px; }.passport-cover > span:not(:first-child) { font-size: 10px; }.passport-cover svg { width: 33px; }.stamp-empty { width: 106px; height: 106px; }.passport-stamp { width: 114px; }.playlist-card { gap: 14px; } }
+@media (prefers-reduced-motion: reduce) { .wheel-disc, .suitcase-fill, .bingo-cell { transition: none; } .travel-ticket::before { animation: none !important; display: none; } }
+@media print { .adventure-section, #next-ticket, .packing-suitcase { display: none !important; } }
+
+.jar-paper { min-width: 44px; min-height: 32px; padding: 0; }
+.jar-paper:nth-child(3n) { left: 45px; }
+.jar-paper:hover { filter: brightness(1.06); box-shadow: 0 2px 7px #294c3e20; }

@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="nb">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f7f2">
+  <meta name="description" content="Pakk litt smartere. Lag en pakkeliste til storbytur, fjelltur eller strandferie, tilpass den og kryss av underveis.">
+  <title>Pakkeklar — mindre å huske, mer å glede seg til</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="preload" href="assets/geist-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="dashboard.css">
+  <script type="module" src="app.js"></script>
+</head>
+<body id="top">
+  <a class="skip-link" href="#planlegg">Hopp til pakkelisten</a>
+  <header class="site-header">
+    <div class="header-inner wrap">
+      <a class="brand" href="./" aria-label="Pakkeklar – hjem">
+        <span class="brand-mark" data-icon="luggage"></span>
+        <span>pakkeklar<span class="brand-dot">.</span></span>
+      </a>
+      <nav aria-label="Hovedmeny">
+        <a class="nav-active" href="#turer" data-nav="turer" aria-current="location">Mine turer</a>
+        <a href="#reiseglede" data-nav="reiseglede">Reiseglede</a>
+        <a href="#planlegg" data-nav="planlegg">Pakkelisten</a>
+        <button class="text-button" id="how-button" type="button" aria-label="Slik fungerer det" title="Slik fungerer det"><span class="how-label">Slik fungerer det</span><span class="how-desktop-icon" data-icon="arrow-up-right"></span><span class="how-mobile-icon" data-icon="help"></span></button>
+      </nav>
+      <div class="header-actions"><span class="header-note"><span data-icon="leaf"></span> Litt mindre reisestress</span><button class="icon-button settings-button" id="settings-button" type="button" aria-label="Innstillinger" title="Innstillinger" aria-haspopup="dialog"><span data-icon="settings"></span></button></div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <span class="eyebrow"><span class="eyebrow-line"></span> NESTE TUR STARTER HER</span>
+        <h1 id="hero-title">Mindre å huske.<br><em>Mer å glede seg til.</em></h1>
+        <p>De gode turene starter med litt oversikt.<br class="desktop-break"> Vi hjelper deg å pakke det du trenger.</p>
+        <a class="button button-primary hero-cta" href="#planlegg">Finn din pakkeliste <span data-icon="arrow-down"></span></a>
+        <div class="hero-benefits"><span><span data-icon="check"></span> Tilpasset turen din</span><span><span data-icon="check"></span> Klar på et øyeblikk</span></div>
+      </div>
+      <div class="hero-visual" id="hero-slideshow" role="region" aria-roledescription="bildefremvisning" aria-label="Reiseinspirasjon">
+        <img class="hero-image is-current" src="assets/reise-hero.jpg" alt="En grønn koffert og en solhatt på en lys terrasse ved turkis hav." width="1536" height="1024" fetchpriority="high">
+        <span class="image-label"><span data-icon="sun"></span><span class="image-label-text">Litt nærmere feriefølelsen.</span></span>
+        <div class="hero-controls" id="hero-controls" hidden>
+          <div class="hero-pagination" id="hero-pagination" role="group" aria-label="Velg reisebilde"></div>
+          <button class="hero-toggle" id="hero-toggle" type="button" aria-label="Sett bildefremvisningen på pause"><span data-icon="pause"></span></button>
+        </div>
+      </div>
+    </section>
+
+    <section class="trips-section" id="turer" aria-labelledby="trips-title">
+      <div class="section-heading trips-heading">
+        <div><span class="eyebrow">SMÅ PLANER. STORE OPPLEVELSER.</span><h2 id="trips-title">Noe å glede seg til.</h2><p>Små og store reiser, samlet på ett sted.</p></div>
+        <button class="button button-secondary new-trip-button" id="new-trip-button" type="button"><span data-icon="plus"></span> Ny tur</button>
+      </div>
+      <div id="next-ticket"></div>
+      <div class="trip-cards" id="trip-cards" aria-label="Dine turer"></div>
+      <div class="trips-empty" id="trips-empty" hidden><span class="empty-trip-icon" data-icon="luggage"></span><div><h3>Her begynner neste eventyr.</h3><p>Du har ingen turer ennå. Lag din første, eller hent eksempelinnhold i innstillingene.</p></div><a class="button button-primary" href="#planlegg">Planlegg første tur <span data-icon="arrow-right"></span></a></div>
+    </section>
+
+    <section class="adventure-section" id="reiseglede" aria-labelledby="adventure-title">
+      <div class="section-heading adventure-heading">
+        <div><span class="eyebrow">DET LILLE EKSTRA</span><h2 id="adventure-title">Plass til mer enn bagasje.</h2><p>Små opplevelser. Store og små minner.</p></div>
+      </div>
+      <div class="adventure-toolbar">
+        <div class="adventure-tabs" role="tablist" aria-label="Utforsk reiseglede">
+          <button type="button" id="tab-explore" role="tab" aria-selected="true" aria-controls="panel-explore"><span data-icon="compass"></span> På tur</button>
+          <button type="button" id="tab-dreams" role="tab" aria-selected="false" aria-controls="panel-dreams" tabindex="-1"><span data-icon="sparkles"></span> Drømmer</button>
+          <button type="button" id="tab-memories" role="tab" aria-selected="false" aria-controls="panel-memories" tabindex="-1"><span data-icon="book"></span> Minner</button>
+        </div>
+        <div class="adventure-trip-field">
+          <img id="adventure-trip-cover" src="assets/hero-fjell.jpg" alt="" width="36" height="36">
+          <div class="adventure-trip-choice"><label for="adventure-trip">Valgt tur</label><select id="adventure-trip"></select></div>
+          <span class="adventure-trip-arrow" data-icon="chevron-down" aria-hidden="true"></span>
+        </div>
+      </div>
+      <p class="adventure-save-warning" id="adventure-save-warning" role="status" hidden></p>
+      <div id="panel-explore" role="tabpanel" aria-labelledby="tab-explore" class="explore-grid">
+        <article class="adventure-card wheel-card" aria-labelledby="wheel-title">
+          <div><span class="eyebrow">LITT SPONTANITET?</span><h3 id="wheel-title">Hva finner vi på?</h3><p>La hjulet velge et lite avbrekk.</p></div>
+          <div class="wheel-layout"><div class="activity-wheel" aria-hidden="true"><span class="wheel-pointer"></span><div id="wheel-disc" class="wheel-disc"></div><span class="wheel-hub" data-icon="compass"></span></div><div class="wheel-copy"><div id="activity-result" aria-live="polite"></div><button id="spin-wheel" class="button button-primary" type="button"><span data-icon="rotate"></span> Snurr hjulet</button></div></div>
+        </article>
+        <article class="adventure-card bingo-card" aria-labelledby="bingo-title">
+          <div class="card-heading"><div><span class="eyebrow">NI SMÅ OPPLEVELSER</span><h3 id="bingo-title">Reisebingo</h3></div><span class="bingo-count" id="bingo-count"></span></div>
+          <p>Tre på rad, på skrå eller nedover. Kryss av underveis.</p>
+          <div id="bingo-board" class="bingo-board" role="group" aria-label="Ditt bingobrett"></div>
+          <div class="bingo-footer"><span id="bingo-message" aria-live="polite"></span><button id="bingo-reset" class="text-button" type="button">Start på nytt</button></div>
+        </article>
+        <article class="adventure-card playlist-card" aria-labelledby="playlist-title"><div class="record-art" aria-hidden="true"><span class="record-disc"></span><img id="playlist-cover" src="assets/hero-fjell.jpg" alt="" width="96" height="96"></div><div class="playlist-copy"><span class="eyebrow">LYDEN AV TUREN</span><h3 id="playlist-title">Turens spilleliste</h3><p id="playlist-description"></p><div class="playlist-actions"><a id="playlist-open" class="text-button" target="_blank" rel="noopener noreferrer" hidden>Åpne i Spotify <span data-icon="arrow-up-right"></span></a><button id="playlist-edit" class="text-button" type="button">Legg til spilleliste <span data-icon="plus"></span></button></div></div></article>
+      </div>
+      <div id="panel-dreams" role="tabpanel" aria-labelledby="tab-dreams" hidden>
+        <div class="subsection-heading"><div><h3>Drømmeskuffen</h3><p>En idé trenger ingen avreisedato. Samle steder og stemninger til senere.</p></div><button id="new-dream" class="button button-secondary" type="button"><span data-icon="plus"></span> Ny drøm</button></div>
+        <div id="dream-cards" class="dream-grid"></div>
+      </div>
+      <div id="panel-memories" role="tabpanel" aria-labelledby="tab-memories" class="memories-grid" hidden>
+        <article class="adventure-card passport-card" aria-labelledby="passport-title"><div class="card-heading"><div><span class="eyebrow">EVENTYR DU TAR MED DEG</span><h3 id="passport-title">Mitt reisepass</h3></div><span class="passport-total" id="passport-total"></span></div><p>Gi gjennomførte turer et eget stempel.</p><div class="passport-book"><div class="passport-cover"><span data-icon="compass"></span><strong>REISEPASS</strong><span>små & store eventyr</span><span class="passport-brand">pakkeklar.</span></div><div class="passport-page" id="passport-page"></div></div><p class="stamp-hint" id="stamp-hint"></p><div class="passport-actions"><button id="stamp-current" class="button button-primary" type="button">Stemple denne turen</button><button id="stamp-previous" class="text-button" type="button">Legg til en tidligere tur <span data-icon="plus"></span></button></div></article>
+        <article class="adventure-card memory-card" aria-labelledby="memory-title"><div class="card-heading"><div><span class="eyebrow">SPAR PÅ DET FINE</span><h3 id="memory-title">Minneglass</h3></div><span id="memory-count" class="bingo-count"></span></div><p>Et øyeblikk, en setning, noe du vil huske fra den valgte turen.</p><div class="memory-jar" role="group" aria-label="Minner i glasset"><div class="jar-lid" aria-hidden="true"></div><div class="jar-glass" id="jar-papers"></div><span class="jar-label" aria-hidden="true">gode øyeblikk</span></div><div class="memory-notes" id="memory-notes"></div><button id="new-memory" class="button button-secondary" type="button"><span data-icon="plus"></span> Legg et minne i glasset</button></article>
+      </div>
+    </section>
+
+    <section class="packing-workspace" id="planlegg" aria-labelledby="workspace-title">
+      <div class="section-heading">
+        <div><span class="eyebrow">FRA REISEPLAN TIL PAKKEKLAR</span><h2 id="workspace-title">En god tur starter her.</h2></div>
+        <span class="workspace-note"><span data-icon="lock"></span> Listen din lagres på denne enheten</span>
+      </div>
+
+      <div class="workspace-grid">
+        <aside class="planner panel" aria-labelledby="planner-title">
+          <div class="panel-heading"><span class="step-number">01</span><div><h3 id="planner-title">Planen for turen</h3><p id="planner-subtitle">Små detaljer. Bedre oversikt.</p></div></div>
+          <div class="plan-summary" id="plan-summary">
+            <span class="plan-state" id="plan-saved-label"><span data-icon="check-circle"></span> Turdetaljene er lagret</span>
+            <h4 id="plan-summary-name"></h4>
+            <dl class="plan-facts" id="plan-facts"></dl>
+            <button class="button button-secondary plan-edit-button" id="edit-trip-button" type="button"><span data-icon="edit"></span> Rediger reiseplan</button>
+          </div>
+          <form id="trip-form" hidden>
+            <p class="plan-state" id="plan-save-state" role="status"></p>
+            <div class="trip-details-fields">
+              <div class="form-field"><label for="trip-name">Navn på turen</label><input type="text" id="trip-name" name="trip-name" placeholder="For eksempel helg på hytta" maxlength="80" required autocomplete="off"></div>
+              <div class="form-field"><label for="departure-date">Avreisedato <span>(valgfritt)</span></label><input type="date" id="departure-date" name="departure-date" min="2000-01-01" max="2100-12-31"></div>
+            </div>
+            <fieldset class="trip-fieldset">
+              <legend>Velg turtype</legend>
+              <div class="trip-options">
+                <label class="trip-option">
+                  <input type="radio" name="trip-type" value="city" checked>
+                  <span class="trip-photo"><img src="assets/storby.jpg" width="600" height="400" alt="" loading="lazy"><span class="selection-check" data-icon="check"></span></span>
+                  <span class="trip-option-name">Storby</span>
+                </label>
+                <label class="trip-option">
+                  <input type="radio" name="trip-type" value="mountain">
+                  <span class="trip-photo"><img src="assets/fjell.jpg" width="600" height="400" alt="" loading="lazy"><span class="selection-check" data-icon="check"></span></span>
+                  <span class="trip-option-name">Fjell</span>
+                </label>
+                <label class="trip-option">
+                  <input type="radio" name="trip-type" value="beach">
+                  <span class="trip-photo"><img src="assets/strand.jpg" width="600" height="400" alt="" loading="lazy"><span class="selection-check" data-icon="check"></span></span>
+                  <span class="trip-option-name">Strand</span>
+                </label>
+              </div>
+            </fieldset>
+            <div class="duration-field">
+              <div><label for="days">Hvor lenge blir du borte?</label><span>Fra 1 til 30 dager</span></div>
+              <div class="stepper">
+                <button id="days-minus" type="button" aria-label="Én dag mindre"><span data-icon="minus"></span></button>
+                <input id="days" name="days" type="number" min="1" max="30" step="1" value="3" required aria-label="Antall dager">
+                <button id="days-plus" type="button" aria-label="Én dag mer"><span data-icon="plus"></span></button>
+              </div>
+            </div>
+            <button class="cover-picker" id="choose-cover-button" type="button" aria-haspopup="dialog"><img id="draft-cover-image" src="assets/hero-storby.jpg" width="80" height="64" alt=""><span><strong>Bildet til turen</strong><span id="draft-cover-name"></span></span><span class="cover-picker-action">Velg <span data-icon="image"></span></span></button>
+            <button class="button button-primary generate-button" type="submit"><span id="generate-label">Oppdater turen</span> <span data-icon="arrow-right"></span></button>
+            <button class="text-button cancel-new-trip" id="cancel-new-trip" type="button" hidden>Avbryt ny tur</button>
+            <p class="planner-footnote">Et godt utgangspunkt. Du gjør den til din.</p>
+          </form>
+          <div class="packing-tip">
+            <span class="tip-icon" data-icon="lightbulb"></span>
+            <div><span class="tip-kicker">ET LITE PAKKETIPS</span><p id="packing-tip">Rull klærne i stedet for å brette dem. Det gir bedre oversikt i kofferten.</p></div>
+          </div>
+          <div class="small-promise"><span data-icon="heart"></span> Laget for små og store eventyr.</div>
+        </aside>
+
+        <section class="checklist panel" aria-labelledby="list-title">
+          <div class="checklist-top">
+            <img class="list-cover" id="list-cover" src="assets/hero-storby.jpg" width="112" height="128" alt="">
+            <div class="list-heading-text"><span class="eyebrow" id="list-eyebrow">DIN PAKKELISTE</span><h3 id="list-title" tabindex="-1">Din neste tur</h3><p class="trip-summary" id="trip-summary"></p><span class="list-countdown" id="list-countdown"></span></div>
+            <div class="checklist-actions"><button class="icon-button delete-trip-button" id="delete-trip-button" type="button" aria-label="Fjern denne turen" title="Fjern denne turen"><span data-icon="trash"></span></button></div>
+          </div>
+          <div class="trip-tools">
+            <button class="button button-primary packing-mode-entry" id="packing-mode-button" type="button"><span data-icon="luggage"></span> Start pakkemodus <span data-icon="arrow-right"></span></button>
+            <div class="trip-tool-buttons">
+              <button class="button button-secondary" id="copy-trip-button" type="button"><span data-icon="copy"></span> Kopier tur</button>
+              <button class="button button-secondary" id="print-button" type="button" aria-describedby="pdf-hint"><span data-icon="printer"></span> Lagre som PDF</button>
+            </div>
+            <p id="pdf-hint">Velg «Lagre som PDF» i utskriftsvinduet.</p>
+          </div>
+          <div class="progress-block">
+            <div id="packing-suitcase" class="packing-suitcase" role="img" aria-label="Kofferten fylles mens du pakker"></div>
+            <div class="progress-label"><strong id="progress-count">0 av 18 pakket</strong><span id="progress-message">Litt etter litt, så er du klar.</span></div>
+            <div class="progress-track" id="progress-track" role="progressbar" aria-label="Pakkefremdrift" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="progress-fill"></span></div>
+          </div>
+          <section class="completion-panel" id="completion-panel" aria-labelledby="completion-title" hidden>
+            <span class="completion-symbol" data-icon="check-circle"></span>
+            <div><h4 id="completion-title">Alt er pakket.</h4><p id="completion-description"></p><button class="text-button" id="finish-preparation-button" type="button">Gjør klart før avreise <span data-icon="arrow-down"></span></button></div>
+          </section>
+          <div class="list-toolbar">
+            <div class="filters" role="group" aria-label="Vis ting på pakkelisten">
+              <button class="filter-button active" type="button" data-filter="all" aria-pressed="true">Alt <span id="all-count">18</span></button>
+              <button class="filter-button" type="button" data-filter="remaining" aria-pressed="false">Gjenstår</button>
+              <button class="filter-button" type="button" data-filter="packed" aria-pressed="false">Pakket</button>
+            </div>
+            <button class="text-button reset-button" id="reset-button" type="button" disabled><span data-icon="rotate"></span> Nullstill</button>
+          </div>
+          <div class="category-grid" id="category-grid"></div>
+          <div class="empty-state" id="empty-state" hidden><span data-icon="luggage"></span><h4 id="empty-title"></h4><p id="empty-description"></p></div>
+          <form class="add-form" id="add-form">
+            <label class="sr-only" for="custom-item">Legg til noe du vil huske</label>
+            <span class="add-input-icon" data-icon="plus"></span>
+            <input id="custom-item" name="custom-item" type="text" placeholder="Noe mer du vil huske?" maxlength="80" autocomplete="off" required>
+            <button type="submit">Legg til <span data-icon="arrow-right"></span></button>
+          </form>
+          <section class="preparation" aria-labelledby="preparation-title">
+            <div class="preparation-heading">
+              <div><h4 id="preparation-title"><span data-icon="check-circle"></span> Før avreise</h4><p>Små ting som gir en roligere start.</p></div>
+              <span class="preparation-count" id="preparation-count">0 av 5 gjort</span>
+            </div>
+            <ul class="preparation-list" id="preparation-list"></ul>
+          </section>
+          <div class="list-footer"><span id="save-status"><span data-icon="check-circle"></span><span>Lagres automatisk</span></span><span>Din tur, din liste.</span></div>
+        </section>
+      </div>
+    </section>
+
+    <section class="how-strip" aria-label="Tre enkle steg">
+      <div><span class="how-number">01</span><span><strong>Velg turen</strong><span>Storby, fjell eller strand?</span></span></div>
+      <span class="how-connector" aria-hidden="true"></span>
+      <div><span class="how-number">02</span><span><strong>Gjør listen til din</strong><span>Legg til det lille ekstra.</span></span></div>
+      <span class="how-connector" aria-hidden="true"></span>
+      <div><span class="how-number">03</span><span><strong>Pakk. Kryss av. Reis.</strong><span>Med litt mer ro i magen.</span></span></div>
+    </section>
+  </main>
+
+  <footer class="site-footer wrap"><a class="brand footer-brand" href="./"><span data-icon="luggage"></span>pakkeklar.</a><p>Mindre bagasje i hodet. Mer plass til opplevelser.</p><button class="text-button" id="privacy-button" type="button">Om lagring <span data-icon="arrow-up-right"></span></button></footer>
+
+  <section class="packing-mode-bar" id="packing-mode-bar" aria-label="Pakkemodus" hidden>
+    <div class="packing-mode-bar-inner"><button class="text-button" id="packing-mode-exit" type="button"><span data-icon="arrow-left"></span> Oversikt</button><div><strong id="packing-mode-name"></strong><span id="packing-mode-count"></span></div></div>
+    <div class="progress-track" id="packing-mode-progress" role="progressbar" aria-label="Pakkefremdrift i pakkemodus" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="packing-mode-fill"></span></div>
+  </section>
+
+  <dialog id="settings-dialog" class="app-dialog settings-dialog" aria-labelledby="settings-title">
+    <div class="dialog-heading"><span class="dialog-symbol" data-icon="settings"></span><button class="icon-button" id="settings-close" type="button" aria-label="Lukk innstillinger"><span data-icon="x"></span></button></div>
+    <span class="eyebrow">GJØR PLASS TIL DINE PLANER</span><h2 id="settings-title">Ditt utgangspunkt.</h2>
+    <p class="settings-intro">Utforsk Pakkeklar med ferdige reiseplaner, eller begynn med blanke ark.</p>
+    <div class="settings-current"><span data-icon="lock"></span><span id="settings-summary"></span><span>Kun i denne nettleseren</span></div>
+    <div class="settings-options">
+      <button class="settings-option" id="settings-examples" type="button"><span class="settings-option-icon" data-icon="sparkles"></span><span><strong>Bruk eksempelinnhold</strong><span>Tre fiktive turer med pakkefremdrift og tre reiseideer. Få tilbake de opprinnelige startverdiene.</span></span><span data-icon="arrow-right"></span></button>
+      <button class="settings-option" id="settings-empty" type="button"><span class="settings-option-icon" data-icon="leaf"></span><span><strong>Start helt tomt</strong><span>Rydd bort turer, pakkelister, drømmer og minner. Gjør plass til din egen første tur.</span></span><span data-icon="arrow-right"></span></button>
+    </div>
+    <p class="settings-note">Du får bekrefte før innholdet erstattes. Siste bytte kan angres her, også etter at du har lukket siden.</p>
+    <button class="button button-secondary settings-undo" id="settings-undo" type="button" hidden><span data-icon="rotate"></span> Angre siste bytte</button>
+    <p id="settings-error" class="settings-error" role="alert" hidden></p>
+  </dialog>
+  <dialog id="adventure-dialog" class="app-dialog adventure-dialog" aria-labelledby="adventure-dialog-title">
+    <div class="dialog-heading"><span class="dialog-symbol" data-icon="sparkles"></span><button class="icon-button" id="adventure-close" type="button" aria-label="Lukk vinduet"><span data-icon="x"></span></button></div>
+    <h2 id="adventure-dialog-title"></h2><div id="adventure-dialog-body"></div>
+  </dialog>
+  <dialog id="info-dialog" class="app-dialog">
+    <div class="dialog-heading"><span class="dialog-symbol" data-icon="luggage"></span><button class="icon-button dialog-close" type="button" aria-label="Lukk"><span data-icon="x"></span></button></div>
+    <h2 id="info-title">Fra reiseplan til reiseklar.</h2>
+    <div id="info-content"></div>
+    <button class="button button-primary dialog-close" type="button">Det høres bra ut <span data-icon="check"></span></button>
+  </dialog>
+  <dialog id="confirm-dialog" class="app-dialog" aria-labelledby="confirm-title" aria-describedby="confirm-description">
+    <div class="dialog-heading"><span class="dialog-symbol" data-icon="luggage"></span><button class="icon-button" id="confirm-close" type="button" aria-label="Avbryt"><span data-icon="x"></span></button></div>
+    <h2 id="confirm-title">Klar for en ny liste?</h2><p id="confirm-description"></p>
+    <div id="type-change-preview" class="type-change-preview" hidden></div>
+    <div class="dialog-actions"><button class="button button-secondary" id="confirm-cancel" type="button">Behold listen</button><button class="button button-primary" id="confirm-accept" type="button">Lag ny liste</button></div>
+  </dialog>
+  <dialog id="unsaved-dialog" class="app-dialog" aria-labelledby="unsaved-title" aria-describedby="unsaved-description">
+    <div class="dialog-heading"><span class="dialog-symbol" data-icon="edit"></span><button class="icon-button" id="unsaved-close" type="button" aria-label="Fortsett å redigere"><span data-icon="x"></span></button></div>
+    <h2 id="unsaved-title">Ta vare på endringene?</h2>
+    <p id="unsaved-description">Du har ulagrede turdetaljer. Lagre dem før du går videre, eller forkast endringene.</p>
+    <div class="unsaved-actions"><button class="button button-primary" id="unsaved-save" type="button">Lagre og fortsett <span data-icon="check"></span></button><button class="button button-secondary" id="unsaved-discard" type="button">Forkast endringene</button><button class="text-button" id="unsaved-stay" type="button">Fortsett å redigere</button></div>
+  </dialog>
+  <dialog id="image-dialog" class="app-dialog image-dialog" aria-labelledby="image-title" aria-describedby="image-description">
+    <div class="dialog-heading"><span class="dialog-symbol" data-icon="image"></span><button class="icon-button" id="image-close" type="button" aria-label="Avbryt bildevalg"><span data-icon="x"></span></button></div>
+    <h2 id="image-title">Et lite glimt av turen.</h2>
+    <p id="image-description">Velg et reisemotiv som passer. Bildet brukes på turkortet og pakkelisten.</p>
+    <form id="image-form">
+      <fieldset><legend class="sr-only">Velg bilde til turen</legend><label class="image-auto-choice"><input type="radio" name="trip-image" value="auto"> Følg turtypen automatisk</label><div class="image-options" id="image-options"></div></fieldset>
+      <div class="dialog-actions"><button class="button button-secondary" id="image-cancel" type="button">Avbryt</button><button class="button button-primary" type="submit">Bruk bildet</button></div>
+    </form>
+  </dialog>
+  <dialog id="copy-dialog" class="app-dialog" aria-labelledby="copy-title" aria-describedby="copy-description">
+    <div class="dialog-heading"><span class="dialog-symbol" data-icon="copy"></span><button class="icon-button" id="copy-close" type="button" aria-label="Avbryt kopiering"><span data-icon="x"></span></button></div>
+    <h2 id="copy-title">En ny tur, et godt utgangspunkt.</h2>
+    <p id="copy-description">Pakkelisten og egne tillegg blir med. Alle avkryssinger, også i «Før avreise», nullstilles i kopien.</p>
+    <form id="copy-form">
+      <div class="trip-details-fields">
+        <div class="form-field"><label for="copy-name">Navn på kopien</label><input id="copy-name" type="text" maxlength="80" required autocomplete="off"></div>
+        <div class="form-field"><label for="copy-date">Ny avreisedato <span>(valgfritt)</span></label><input id="copy-date" type="date" min="2000-01-01" max="2100-12-31"></div>
+      </div>
+      <div class="dialog-actions"><button class="button button-secondary" id="copy-cancel" type="button">Avbryt</button><button class="button button-primary" type="submit">Opprett kopi</button></div>
+    </form>
+  </dialog>
+  <dialog id="quantity-dialog" class="app-dialog quantity-dialog" aria-labelledby="quantity-title" aria-describedby="quantity-description">
+    <div class="dialog-heading"><span class="dialog-symbol" data-icon="luggage"></span><button class="icon-button" id="quantity-close" type="button" aria-label="Avbryt endring av antall"><span data-icon="x"></span></button></div>
+    <h2 id="quantity-title">Hvor mange tar du med?</h2>
+    <p class="quantity-item-name" id="quantity-item-name"></p>
+    <p id="quantity-description">Antallet du velger beholdes også når reisedagene endres.</p>
+    <form id="quantity-form">
+      <div class="quantity-editor">
+        <label for="quantity-value">Antall <span>1–99 stk.</span></label>
+        <div class="stepper quantity-stepper">
+          <button id="quantity-minus" type="button" aria-label="Én ting mindre"><span data-icon="minus"></span></button>
+          <input id="quantity-value" name="quantity" type="number" min="1" max="99" step="1" required inputmode="numeric">
+          <button id="quantity-plus" type="button" aria-label="Én ting mer"><span data-icon="plus"></span></button>
+        </div>
+      </div>
+      <button class="text-button quantity-auto" id="quantity-auto" type="button" hidden></button>
+      <div class="dialog-actions"><button class="button button-secondary" id="quantity-cancel" type="button">Avbryt</button><button class="button button-primary" type="submit">Lagre antall</button></div>
+    </form>
+  </dialog>
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden><span data-icon="check-circle"></span><span id="toast-message"></span><button id="toast-undo" type="button" hidden>Angre</button><button id="toast-close" type="button" aria-label="Lukk melding"><span data-icon="x"></span></button></div>
+  <div class="sr-only" id="live-status" aria-live="polite" aria-atomic="true"></div>
+  <noscript><div class="noscript-message">Pakkeklar trenger JavaScript for å lage og lagre pakkelisten. Slå på JavaScript i nettleseren og last siden på nytt.</div></noscript>
+</body>
+</html>
